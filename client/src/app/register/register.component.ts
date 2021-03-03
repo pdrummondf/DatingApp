@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit {
   }
 
   initializeForm() {
+
     this.registerForm = this.fb.group({
       gender: ['male', Validators.required],
       username: ['', Validators.required],
@@ -39,9 +40,9 @@ export class RegisterComponent implements OnInit {
         this.matchValues('password')]]
     });
 
-    this.registerForm.controls.password.valueChanges.subscribe(() => {
-      this.registerForm.controls.confirmPassword.updateValueAndValidity();
-    });
+    // this.registerForm.controls.password.valueChanges.subscribe(() => {
+    //   this.registerForm.controls.confirmPassword.updateValueAndValidity();
+    // });
   }
 
   matchValues(matchTo: string): ValidatorFn {
@@ -54,7 +55,7 @@ export class RegisterComponent implements OnInit {
     console.log(this.registerForm.value);
     this.accountService.register(this.registerForm.value).subscribe(response => {
       this.router.navigateByUrl('/members')
-      this.cancel();
+      // this.cancel();
     }, error => {
       this.validationErrors = error;
     })
