@@ -54,10 +54,16 @@ export class RegisterComponent implements OnInit {
   register() {
     console.log(this.registerForm.value);
     this.accountService.register(this.registerForm.value).subscribe(response => {
-      this.router.navigateByUrl('/members')
-      // this.cancel();
+      this.router.navigateByUrl('/members');
     }, error => {
-      this.validationErrors = error;
+      // console.log("error.error: " + error.error.length);
+      for (let index = 0; index < error.error.length; index++) {
+        const element = error.error[index];
+        this.validationErrors[index] = element.description;
+        // console.log('Validation: ' + this.validationErrors[index]);
+      }
+      // this.validationErrors = error.error;
+      // this.validationErrors.forEach(ce => {console.log('Codigo erro: ' + ce.length);});
     })
   }
 
